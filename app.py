@@ -11,26 +11,51 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# ========== DARK/LIGHT THEME STYLING ==========
+# ========== RESPONSIVE THEME STYLING ==========
 st.markdown("""
 <style>
-    /* Force dark mode throughout the app */
-    [data-testid="stAppViewContainer"], 
-    .main,
-    .stTextInput, 
-    .stButton,
-    .stMarkdown,
-    .st-emotion-cache-1kyxreq,
-    .st-emotion-cache-16txtl3,
-    .st-emotion-cache-eczf16,
-    .st-emotion-cache-18ni7ap {
-        background-color: #1a202c !important;
-        color: #f7fafc !important;
+    /* Theme variables - Light theme (default) */
+    :root {
+        --bg-color: #f5f7fa;
+        --card-bg: #ffffff;
+        --text-color: #2d3748;
+        --border-color: #e2e8f0;
+        --primary: #4b6cb7;
+        --heading-bg: #4b6cb7;
+        --footer-bg: #2d3748;
+        --input-bg: #ffffff;
+        --input-border: #cbd5e0;
+        --placeholder-color: #a0aec0;
+    }
+
+    /* Dark theme overrides */
+    [data-testid="stAppViewContainer"].st-emotion-cache-1wrcr25 {
+        --bg-color: #1a202c;
+        --card-bg: #2d3748;
+        --text-color: #f7fafc;
+        --border-color: #4a5568;
+        --primary: #6c8bda;
+        --heading-bg: #2d3748;
+        --footer-bg: #1a202c;
+        --input-bg: #2d3748;
+        --input-border: #4a5568;
+        --placeholder-color: #a0aec0;
     }
     
-    /* Style the header */
+    /* Apply theme colors to container */
+    [data-testid="stAppViewContainer"] {
+        background-color: var(--bg-color) !important;
+        color: var(--text-color) !important;
+    }
+    
+    .main {
+        background-color: var(--bg-color) !important;
+        color: var(--text-color) !important;
+    }
+    
+    /* Header styling */
     .header {
-        background: #2d3748;
+        background: var(--heading-bg);
         color: white;
         padding: 1.5rem;
         border-radius: 0.5rem;
@@ -41,15 +66,15 @@ st.markdown("""
     
     /* Password input styling */
     .stTextInput>div>div>input {
-        background-color: #2d3748 !important;
-        color: white !important;
-        border: 1px solid #4a5568 !important;
+        background-color: var(--input-bg) !important;
+        color: var(--text-color) !important;
+        border: 1px solid var(--input-border) !important;
         border-radius: 0.5rem;
         padding: 0.75rem;
     }
     
     .stTextInput>div>div>input::placeholder {
-        color: #a0aec0;
+        color: var(--placeholder-color);
     }
     
     /* Hide duplicate label */
@@ -57,9 +82,14 @@ st.markdown("""
         display: none !important;
     }
 
+    /* Basic text styling */
+    .stMarkdown p {
+        color: var(--text-color) !important;
+    }
+    
     /* Button styling */
     .stButton button {
-        background-color: #4b6cb7 !important;
+        background-color: var(--primary) !important;
         color: white !important;
         border: none !important;
         border-radius: 0.5rem;
@@ -67,70 +97,69 @@ st.markdown("""
     }
     
     .stButton button:hover {
-        background-color: #6c8bda !important;
+        opacity: 0.9;
     }
 
     /* Footer styling */
     .footer {
-        background: #2d3748;
+        background: var(--footer-bg);
         color: white;
         text-align: center;
         padding: 1rem;
         margin-top: 2rem;
         border-radius: 0.5rem;
-        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
     /* Results card */
     .results-card {
-        background-color: #2d3748 !important;
-        color: white !important;
+        background-color: var(--card-bg) !important;
+        color: var(--text-color) !important;
         border-radius: 0.5rem;
         padding: 1.5rem;
         margin: 1rem 0;
-        border: 1px solid #4a5568;
+        border: 1px solid var(--border-color);
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
-    /* Success/Warning/Error styling */
-    .st-emotion-cache-1erivf3 {
-        background-color: #2d3e4f !important;
-        color: white !important;
+    /* Success/Warning/Error styling - let Streamlit handle these */
+    
+    /* Eye button */
+    .eye-button {
+        background-color: var(--primary);
+        color: white;
+        border: none;
+        border-radius: 0.3rem;
+        padding: 0.5rem 1rem;
+        cursor: pointer;
+        text-align: center;
+        font-size: 1.2rem;
     }
     
     /* Code block styling */
     pre {
-        background-color: #2d3748 !important;
-        color: #63b3ed !important;
-        border: 1px solid #4a5568 !important;
+        background-color: var(--card-bg) !important;
+        border: 1px solid var(--border-color) !important;
+        color: var(--text-color) !important;
         border-radius: 0.25rem;
     }
     
-    code {
-        color: #63b3ed !important;
+    /* Light/Dark mode detection */
+    .light-theme-text { color: #2d3748 !important; }
+    .dark-theme-text { color: #f7fafc !important; }
+    
+    /* Ensure all text is properly visible */
+    [data-testid="stAppViewContainer"].st-emotion-cache-1wrcr25 p,
+    [data-testid="stAppViewContainer"].st-emotion-cache-1wrcr25 h1,
+    [data-testid="stAppViewContainer"].st-emotion-cache-1wrcr25 h2,
+    [data-testid="stAppViewContainer"].st-emotion-cache-1wrcr25 h3,
+    [data-testid="stAppViewContainer"].st-emotion-cache-1wrcr25 li {
+        color: #f7fafc !important;
     }
     
-    /* Make all text white */
-    p, h1, h2, h3, h4, h5, h6, span, div {
-        color: white !important;
-    }
-    
-    /* Fix sidebar */
-    [data-testid="stSidebar"] {
-        background-color: #2d3748 !important;
-        border-right: 1px solid #4a5568;
-    }
-    
-    /* Fix expandables */
-    .streamlit-expanderHeader {
-        background-color: #2d3748 !important;
-        color: white !important;
-    }
-    
-    /* Fix toggle visibility button */
-    button[data-baseweb="button"] {
-        background-color: #2d3748 !important;
-        color: white !important;
+    /* Default (light) text colors */
+    p, h1, h2, h3, li {
+        color: #2d3748 !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -187,7 +216,7 @@ def main():
     with col1:
         password = st.text_input(
             "",  # Empty label since we're showing our own
-            type="password",
+            type="password" if not st.session_state.get('pwd_visible', False) else "default",
             placeholder="Type your password here...",
             key="pwd_input"
         )
@@ -195,10 +224,6 @@ def main():
     with col2:
         if st.button("👁️"):
             st.session_state.pwd_visible = not st.session_state.get('pwd_visible', False)
-    
-    # Show password if visibility toggled
-    if st.session_state.get('pwd_visible', False) and password:
-        st.code(password)
     
     # Results
     if password:
