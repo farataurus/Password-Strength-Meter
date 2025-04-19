@@ -17,13 +17,15 @@ st.markdown("""
     /* Base styles */
     [data-testid="stAppViewContainer"] {
         background: var(--bg-color);
+        color: var(--text-color);
     }
     
     .main {
         background-color: transparent !important;
+        color: var(--text-color);
     }
 
-    /* Theme variables */
+    /* Theme variables - Light mode default */
     :root {
         --bg-color: #f5f7fa;
         --card-bg: #ffffff;
@@ -37,7 +39,9 @@ st.markdown("""
         --placeholder-color: #a0aec0;
     }
 
-    [data-theme="dark"] {
+    /* Dark mode styles */
+    [data-testid="stAppViewContainer"][data-theme="dark"],
+    [data-testid="stAppViewContainer"] [data-theme="dark"] {
         --bg-color: #1a202c;
         --card-bg: #2d3748;
         --text-color: #f7fafc;
@@ -48,6 +52,12 @@ st.markdown("""
         --input-bg: #2d3748;
         --input-border: #4a5568;
         --placeholder-color: #a0aec0;
+    }
+    
+    /* Explicit dark mode overrides */
+    .dark-mode {
+        background-color: var(--bg-color) !important;
+        color: var(--text-color) !important;
     }
 
     /* Header styling */
@@ -60,11 +70,11 @@ st.markdown("""
         margin-bottom: 1.5rem;
     }
     
-    /* Input field - FIXED DUPLICATE LABEL */
+    /* Input field styling */
     .stTextInput>div>div>input {
-        background: var(--input-bg);
-        color: var(--text-color);
-        border: 1px solid var(--input-border);
+        background: var(--input-bg) !important;
+        color: var(--text-color) !important;
+        border: 1px solid var(--input-border) !important;
         border-radius: 0.5rem;
         padding: 0.75rem;
     }
@@ -90,11 +100,30 @@ st.markdown("""
     
     /* Results card */
     .results-card {
-        background: var(--card-bg);
+        background: var(--card-bg) !important;
+        color: var(--text-color) !important;
         border-radius: 0.5rem;
         padding: 1.5rem;
         margin: 1rem 0;
         border: 1px solid var(--border-color);
+    }
+    
+    /* Fix text colors in dark mode */
+    [data-theme="dark"] p, 
+    [data-theme="dark"] h1, 
+    [data-theme="dark"] h2, 
+    [data-theme="dark"] h3, 
+    [data-theme="dark"] li, 
+    [data-theme="dark"] span,
+    [data-theme="dark"] .stMarkdown {
+        color: var(--text-color) !important;
+    }
+    
+    /* Fix code display in dark mode */
+    [data-theme="dark"] code {
+        background-color: #1e2734 !important;
+        color: #e2e8f0 !important;
+        border: 1px solid #4a5568;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -143,7 +172,7 @@ def main():
     """, unsafe_allow_html=True)
     
     # Password input - SINGLE LABEL
-    st.markdown("**Enter your password**")
+    st.markdown('<p class="dark-mode"><strong>Enter your password</strong></p>', unsafe_allow_html=True)
     password = st.text_input(
         "",  # Empty label since we're showing our own
         type="password",
@@ -166,9 +195,9 @@ def main():
                 st.error("❌ Weak password")
             
             if tips:
-                st.markdown("**Improve your password:**")
+                st.markdown('<p class="dark-mode"><strong>Improve your password:</strong></p>', unsafe_allow_html=True)
                 for tip in tips:
-                    st.markdown(f"- {tip}")
+                    st.markdown(f'<p class="dark-mode">- {tip}</p>', unsafe_allow_html=True)
             
             if st.button("Generate Strong Password"):
                 new_pwd = generate_password()
