@@ -11,264 +11,292 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# ========== Enhanced Custom Styling ==========
+# ========== Perfect Theme-Compatible Styling ==========
 st.markdown("""
 <style>
-    /* Global styles that adapt to theme */
+    /* Base styles that work with both themes */
     [data-testid="stAppViewContainer"] {
-        background: var(--background-color);
+        background: var(--bg-color);
     }
     
-    /* Main container styling */
     .main {
         background-color: transparent !important;
+        padding: 0 1rem;
     }
 
-    /* Color variables for themes */
+    /* Theme variables */
     :root {
-        --primary-color: #4b6cb7;
-        --secondary-color: #6c8bda;
-        --background-color: #f8f9fa;
+        --bg-color: #f5f7fa;
         --card-bg: #ffffff;
-        --text-color: #333333;
-        --border-color: #cccccc;
-        --placeholder-color: #aaaaaa;
-        --heading-bg: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        --text-color: #2d3748;
+        --border-color: #e2e8f0;
+        --primary: #4b6cb7;
+        --secondary: #6c8bda;
+        --heading-bg: linear-gradient(135deg, #4b6cb7 0%, #182848 100%);
         --footer-bg: linear-gradient(135deg, #2c3e50 0%, #4b6cb7 100%);
+        --input-bg: #ffffff;
+        --input-text: #2d3748;
+        --input-border: #cbd5e0;
+        --input-placeholder: #a0aec0;
+        --divider-color: #e2e8f0;
     }
 
     /* Dark theme overrides */
     [data-theme="dark"] {
-        --primary-color: #6c8bda;
-        --secondary-color: #8a9ff1;
-        --background-color: #1e1e1e;
-        --card-bg: #2d2d2d;
-        --text-color: #f0f2f6;
-        --border-color: #555555;
-        --placeholder-color: #bbbbbb;
-        --heading-bg: linear-gradient(135deg, #434343 0%, #000000 100%);
-        --footer-bg: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+        --bg-color: #1a202c;
+        --card-bg: #2d3748;
+        --text-color: #f7fafc;
+        --border-color: #4a5568;
+        --primary: #6c8bda;
+        --secondary: #8a9ff1;
+        --heading-bg: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        --footer-bg: linear-gradient(135deg, #1a202c 0%, #2d3748 100%);
+        --input-bg: #2d3748;
+        --input-text: #f7fafc;
+        --input-border: #4a5568;
+        --input-placeholder: #a0aec0;
+        --divider-color: #4a5568;
     }
 
-    /* Button styling */
-    .stButton>button {
-        background: var(--primary-color);
+    /* Header styling */
+    .header {
+        background: var(--heading-bg);
         color: white;
-        border-radius: 10px;
-        padding: 10px 20px;
-        font-weight: bold;
-        border: none;
-        transition: all 0.3s ease;
+        padding: 1.5rem;
+        border-radius: 0.5rem;
+        text-align: center;
+        margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
-    .stButton>button:hover {
-        background: var(--secondary-color);
-        transform: translateY(-2px);
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    .header h1 {
+        font-size: 2rem;
+        margin-bottom: 0.5rem;
+    }
+    
+    .header p {
+        opacity: 0.9;
+        margin-bottom: 0;
     }
 
     /* Input field styling */
     .stTextInput>div>div>input {
-        border-radius: 10px;
-        height: 45px;
-        font-size: 16px;
-        padding: 10px;
-        color: var(--text-color);
+        background-color: var(--input-bg) !important;
+        color: var(--input-text) !important;
+        border: 1px solid var(--input-border) !important;
+        border-radius: 0.5rem;
+        padding: 0.75rem;
+        font-size: 1rem;
+    }
+    
+    .stTextInput>div>div>input::placeholder {
+        color: var(--input-placeholder) !important;
+        opacity: 1 !important;
+    }
+    
+    .stTextInput>div>div>input:focus {
+        border-color: var(--primary) !important;
+        box-shadow: 0 0 0 2px rgba(75, 108, 183, 0.2) !important;
+    }
+
+    /* Button styling */
+    .stButton>button {
+        background: var(--primary) !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 0.5rem !important;
+        padding: 0.75rem 1.5rem !important;
+        font-weight: 600 !important;
+        transition: all 0.2s ease !important;
+    }
+    
+    .stButton>button:hover {
+        background: var(--secondary) !important;
+        transform: translateY(-2px) !important;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    }
+
+    /* Results card */
+    .results-card {
         background-color: var(--card-bg);
+        border-radius: 0.5rem;
+        padding: 1.5rem;
+        margin: 1rem 0;
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
         border: 1px solid var(--border-color);
     }
 
-    /* Placeholder text styling */
-    .stTextInput>div>div>input::placeholder {
-        color: var(--placeholder-color);
-        opacity: 1;
-    }
-
-    /* Card styling */
-    .card {
-        background-color: var(--card-bg);
-        border-radius: 10px;
-        padding: 20px;
-        margin: 10px 0;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    }
-
-    /* Styling for the main heading */
-    .colorful-heading {
-        background: var(--heading-bg);
-        color: white;
-        padding: 20px;
-        border-radius: 10px;
-        text-align: center;
-        font-size: 32px;
-        font-weight: bold;
-        margin-bottom: 20px;
-        box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-    }
-
-    /* Emoji styling */
-    .emoji {
-        font-size: 28px;
-        text-align: center;
-        margin: 10px 0;
-    }
-    
     /* Feedback styling */
-    .tip {
-        color: #ff6b6b;
-        font-weight: bold;
+    .strength-feedback {
+        font-size: 1.1rem;
+        font-weight: 600;
+        margin-bottom: 1rem;
     }
     
-    .success {
-        color: #51cf66;
-        font-weight: bold;
+    .strength-strong {
+        color: #48bb78;
     }
     
-    .warning {
-        color: #fcc419;
-        font-weight: bold;
+    .strength-medium {
+        color: #ed8936;
     }
     
-    .error {
-        color: #ff6b6b;
-        font-weight: bold;
+    .strength-weak {
+        color: #f56565;
+    }
+    
+    .suggestion-item {
+        margin-bottom: 0.5rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
     }
 
-    /* Footer styling */
+    /* Divider */
+    .divider {
+        border-top: 1px solid var(--divider-color);
+        margin: 1.5rem 0;
+    }
+
+    /* Footer */
     .footer {
         background: var(--footer-bg);
         color: white !important;
         text-align: center;
-        padding: 15px;
-        border-radius: 0 0 10px 10px;
-        margin-top: 30px;
-        font-size: 14px;
+        padding: 1rem;
+        margin-top: 2rem;
+        border-radius: 0 0 0.5rem 0.5rem;
+        font-size: 0.875rem;
     }
     
-    /* Divider styling */
-    .divider {
-        border-top: 1px solid var(--border-color);
-        margin: 20px 0;
+    /* Emoji styling */
+    .emoji-feedback {
+        font-size: 2rem;
+        text-align: center;
+        margin: 1rem 0;
     }
 </style>
 """, unsafe_allow_html=True)
 
-# ========== Blacklist ==========
-common_passwords = ["password123", "123456", "qwerty", "letmein", "admin", "welcome", "iloveyou", "password"]
+# ========== Password Logic ==========
+common_passwords = ["password", "123456", "qwerty", "letmein", "admin", "welcome"]
 
-# ========== Password Strength Checker ==========
 def check_strength(password):
     tips = []
     score = 0
-
-    if password.lower() in common_passwords:
-        return 0, ["❌ This password is too common! Pick something more unique."]
-
+    
+    # Length check
     if len(password) >= 12:
         score += 2
     elif len(password) >= 8:
         score += 1
     else:
-        tips.append("🔑 Use at least 12 characters (8 minimum).")
-
+        tips.append("Use at least 12 characters (8 minimum)")
+    
+    # Complexity checks
     if re.search(r"[A-Z]", password) and re.search(r"[a-z]", password):
         score += 1
     else:
-        tips.append("🔡 Include both uppercase and lowercase letters.")
-
+        tips.append("Include both uppercase and lowercase letters")
+    
     if re.search(r"\d", password):
         score += 1
     else:
-        tips.append("🔢 Add at least one number.")
-
-    if re.search(r"[!@#$%^&*]", password):
+        tips.append("Add at least one number")
+    
+    if re.search(r"[^A-Za-z0-9]", password):
         score += 1
     else:
-        tips.append("💥 Add special characters (!@#$%^&*).")
-
-    # Additional checks
-    if len(password) >= 16:
-        score += 1
-    if re.search(r"(.)\1\1", password):
-        tips.append("🔄 Avoid repeating characters multiple times in a row.")
-        score = max(0, score-1)
-
-    return min(5, score), tips  # Cap score at 5
-
-# ========== Password Generator ==========
-def generate_strong_password(length=16):
-    chars = string.ascii_letters + string.digits + "!@#$%^&*"
-    while True:
-        password = ''.join(random.choice(chars) for _ in range(length))
-        score, _ = check_strength(password)
-        if score >= 4:  # Only return strong passwords
-            return password
-
-# ========== UI ==========
-# Colorful Main Heading
-st.markdown(
-    '<div class="colorful-heading">🔐 Password Strength Meter</div>', 
-    unsafe_allow_html=True
-)
-st.markdown(
-    "Check how strong your password is and get tips to make it better!", 
-    unsafe_allow_html=True
-)
-
-# Password Input Field with Placeholder
-password = st.text_input(
-    "Enter your password", 
-    type="password", 
-    placeholder="Type your password here...",
-    key="password_input"
-)
-
-if password:
-    score, feedback = check_strength(password)
+        tips.append("Add special characters (!@#$% etc.)")
     
+    # Blacklist check
+    if password.lower() in common_passwords:
+        score = 0
+        tips = ["This password is too common - choose something more unique"]
+    
+    return min(5, score), tips
+
+def generate_password(length=16):
+    chars = string.ascii_letters + string.digits + "!@#$%^&*"
+    return ''.join(random.choice(chars) for _ in range(length))
+
+# ========== UI Components ==========
+def show_header():
+    st.markdown("""
+    <div class="header">
+        <h1>🔐 Password Strength Meter</h1>
+        <p>Check how strong your password is and get tips to make it better!</p>
+    </div>
+    """, unsafe_allow_html=True)
+
+def show_password_input():
+    password = st.text_input(
+        "Enter your password", 
+        type="password", 
+        placeholder="Type your password here...",
+        key="pwd_input"
+    )
+    return password
+
+def show_results(score, tips):
     with st.container():
-        st.subheader("🔎 Password Analysis")
+        st.markdown('<div class="results-card">', unsafe_allow_html=True)
         
         if score >= 4:
             st.markdown(
-                f'<div class="success">✅ <strong>Strong Password!</strong> '
-                f'Score: {score}/5 - Your password is secure. Great job! 🔐</div>',
+                f'<div class="strength-feedback strength-strong">'
+                f'✅ Strong Password! (Score: {score}/5)</div>',
                 unsafe_allow_html=True
             )
-            st.markdown('<div class="emoji">💪🔒</div>', unsafe_allow_html=True)
+            st.markdown('<div class="emoji-feedback">🔒💪</div>', unsafe_allow_html=True)
         elif score >= 2:
             st.markdown(
-                f'<div class="warning">⚠️ <strong>Moderate Password.</strong> '
-                f'Score: {score}/5 - It\'s decent, but could be stronger.</div>',
+                f'<div class="strength-feedback strength-medium">'
+                f'⚠️ Moderate Password (Score: {score}/5)</div>',
                 unsafe_allow_html=True
             )
-            st.markdown('<div class="emoji">😐</div>', unsafe_allow_html=True)
+            st.markdown('<div class="emoji-feedback">😐</div>', unsafe_allow_html=True)
         else:
             st.markdown(
-                f'<div class="error">❌ <strong>Weak Password!</strong> '
-                f'Score: {score}/5 - Improve it using the tips below.</div>',
+                f'<div class="strength-feedback strength-weak">'
+                f'❌ Weak Password (Score: {score}/5)</div>',
                 unsafe_allow_html=True
             )
-            st.markdown('<div class="emoji">🚫😢</div>', unsafe_allow_html=True)
-
-        st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+            st.markdown('<div class="emoji-feedback">🚨</div>', unsafe_allow_html=True)
         
-        if feedback:
-            st.markdown("### 🔧 Suggestions:")
-            for tip in feedback:
-                st.markdown(f"- <span class='tip'>{tip}</span>", unsafe_allow_html=True)
-
-        st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+        if tips:
+            st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+            st.markdown("**🔧 Suggestions to improve:**")
+            for tip in tips:
+                st.markdown(f'<div class="suggestion-item">🔹 {tip}</div>', unsafe_allow_html=True)
         
-        st.markdown("### 🛠 Need Help?")
-        if st.button("🔁 Generate Strong Password", key="generate_btn"):
-            new_password = generate_strong_password()
-            st.success(f"Here's a strong password: `{new_password}`")
-            st.info("🔒 Remember to store this password securely!")
+        st.markdown('<div class="divider"></div>', unsafe_allow_html=True)
+        st.markdown("**🛠 Need a strong password?**")
+        if st.button("Generate Secure Password", key="generate_btn"):
+            new_pwd = generate_password()
+            st.success(f"Generated password: `{new_pwd}`")
+            st.info("Remember to store this securely!")
+        
+        st.markdown('</div>', unsafe_allow_html=True)
 
-# Footer
-st.markdown("""
-<div class="footer">
-    Developed with ❤️ by Farah Asghar | © 2025 Password Meter Pro | v2.0
-</div>
-""", unsafe_allow_html=True)
+def show_footer():
+    st.markdown("""
+    <div class="footer">
+        Developed with ❤️ by Farah Asghar | © 2025 Password Meter Pro | v2.0
+    </div>
+    """, unsafe_allow_html=True)
+
+# ========== Main App ==========
+def main():
+    show_header()
+    
+    password = show_password_input()
+    
+    if password:
+        score, tips = check_strength(password)
+        show_results(score, tips)
+    
+    show_footer()
+
+if __name__ == "__main__":
+    main()
