@@ -19,10 +19,20 @@ st.markdown("""
             padding: 10px 20px;
             font-weight: bold;
         }
+        /* Custom styling for the password input field */
         .stTextInput>div>input {
             border-radius: 10px;
             height: 45px;
             font-size: 16px;
+            padding: 10px;
+            color: #333; /* Text color inside the input */
+            background-color: #fff; /* Input background color */
+            border: 1px solid #ccc; /* Border color */
+        }
+        /* Placeholder text styling */
+        .stTextInput>div>input::placeholder {
+            color: #aaa; /* Light gray placeholder text */
+            opacity: 1; /* Ensure full visibility */
         }
         .emoji {
             font-size: 28px;
@@ -41,7 +51,7 @@ st.markdown("""
         }
         /* Styling for the main heading */
         .colorful-heading {
-            background-color: indigo; /* Changed to indigo */
+            background-color: indigo; /* Indigo background */
             color: #fff;
             padding: 15px;
             border-radius: 10px;
@@ -96,7 +106,8 @@ def generate_strong_password(length=12):
 st.markdown('<div class="colorful-heading">🔐 Password Strength Meter</div>', unsafe_allow_html=True)
 st.markdown("Check how strong your password is and get tips to make it better!")
 
-password = st.text_input("Enter your password", type="password")
+# Password Input Field with Placeholder
+password = st.text_input("Enter your password", type="password", placeholder="Enter your password")
 
 if password:
     score, feedback = check_strength(password)
