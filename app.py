@@ -11,76 +11,45 @@ st.set_page_config(
     initial_sidebar_state="collapsed"
 )
 
-# ========== PERFECT DARK/LIGHT THEME STYLING ==========
+# ========== DARK/LIGHT THEME STYLING ==========
 st.markdown("""
 <style>
-    /* Base styles */
-    [data-testid="stAppViewContainer"] {
-        background: var(--bg-color);
-        color: var(--text-color);
+    /* Force dark mode throughout the app */
+    [data-testid="stAppViewContainer"], 
+    .main,
+    .stTextInput, 
+    .stButton,
+    .stMarkdown,
+    .st-emotion-cache-1kyxreq,
+    .st-emotion-cache-16txtl3,
+    .st-emotion-cache-eczf16,
+    .st-emotion-cache-18ni7ap {
+        background-color: #1a202c !important;
+        color: #f7fafc !important;
     }
     
-    .main {
-        background-color: transparent !important;
-        color: var(--text-color);
-    }
-
-    /* Theme variables - Light mode default */
-    :root {
-        --bg-color: #f5f7fa;
-        --card-bg: #ffffff;
-        --text-color: #2d3748;
-        --border-color: #e2e8f0;
-        --primary: #4b6cb7;
-        --heading-bg: #4b6cb7;
-        --footer-bg: #2d3748;
-        --input-bg: #ffffff;
-        --input-border: #cbd5e0;
-        --placeholder-color: #a0aec0;
-    }
-
-    /* Dark mode styles */
-    [data-testid="stAppViewContainer"][data-theme="dark"],
-    [data-testid="stAppViewContainer"] [data-theme="dark"] {
-        --bg-color: #1a202c;
-        --card-bg: #2d3748;
-        --text-color: #f7fafc;
-        --border-color: #4a5568;
-        --primary: #6c8bda;
-        --heading-bg: #2d3748;
-        --footer-bg: #1a202c;
-        --input-bg: #2d3748;
-        --input-border: #4a5568;
-        --placeholder-color: #a0aec0;
-    }
-    
-    /* Explicit dark mode overrides */
-    .dark-mode {
-        background-color: var(--bg-color) !important;
-        color: var(--text-color) !important;
-    }
-
-    /* Header styling */
+    /* Style the header */
     .header {
-        background: var(--heading-bg);
+        background: #2d3748;
         color: white;
         padding: 1.5rem;
         border-radius: 0.5rem;
         text-align: center;
         margin-bottom: 1.5rem;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     }
     
-    /* Input field styling */
+    /* Password input styling */
     .stTextInput>div>div>input {
-        background: var(--input-bg) !important;
-        color: var(--text-color) !important;
-        border: 1px solid var(--input-border) !important;
+        background-color: #2d3748 !important;
+        color: white !important;
+        border: 1px solid #4a5568 !important;
         border-radius: 0.5rem;
         padding: 0.75rem;
     }
     
     .stTextInput>div>div>input::placeholder {
-        color: var(--placeholder-color);
+        color: #a0aec0;
     }
     
     /* Hide duplicate label */
@@ -88,42 +57,80 @@ st.markdown("""
         display: none !important;
     }
 
+    /* Button styling */
+    .stButton button {
+        background-color: #4b6cb7 !important;
+        color: white !important;
+        border: none !important;
+        border-radius: 0.5rem;
+        font-weight: bold;
+    }
+    
+    .stButton button:hover {
+        background-color: #6c8bda !important;
+    }
+
     /* Footer styling */
     .footer {
-        background: var(--footer-bg);
+        background: #2d3748;
         color: white;
         text-align: center;
         padding: 1rem;
         margin-top: 2rem;
         border-radius: 0.5rem;
+        box-shadow: 0 -4px 6px rgba(0, 0, 0, 0.1);
     }
     
     /* Results card */
     .results-card {
-        background: var(--card-bg) !important;
-        color: var(--text-color) !important;
+        background-color: #2d3748 !important;
+        color: white !important;
         border-radius: 0.5rem;
         padding: 1.5rem;
         margin: 1rem 0;
-        border: 1px solid var(--border-color);
-    }
-    
-    /* Fix text colors in dark mode */
-    [data-theme="dark"] p, 
-    [data-theme="dark"] h1, 
-    [data-theme="dark"] h2, 
-    [data-theme="dark"] h3, 
-    [data-theme="dark"] li, 
-    [data-theme="dark"] span,
-    [data-theme="dark"] .stMarkdown {
-        color: var(--text-color) !important;
-    }
-    
-    /* Fix code display in dark mode */
-    [data-theme="dark"] code {
-        background-color: #1e2734 !important;
-        color: #e2e8f0 !important;
         border: 1px solid #4a5568;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    
+    /* Success/Warning/Error styling */
+    .st-emotion-cache-1erivf3 {
+        background-color: #2d3e4f !important;
+        color: white !important;
+    }
+    
+    /* Code block styling */
+    pre {
+        background-color: #2d3748 !important;
+        color: #63b3ed !important;
+        border: 1px solid #4a5568 !important;
+        border-radius: 0.25rem;
+    }
+    
+    code {
+        color: #63b3ed !important;
+    }
+    
+    /* Make all text white */
+    p, h1, h2, h3, h4, h5, h6, span, div {
+        color: white !important;
+    }
+    
+    /* Fix sidebar */
+    [data-testid="stSidebar"] {
+        background-color: #2d3748 !important;
+        border-right: 1px solid #4a5568;
+    }
+    
+    /* Fix expandables */
+    .streamlit-expanderHeader {
+        background-color: #2d3748 !important;
+        color: white !important;
+    }
+    
+    /* Fix toggle visibility button */
+    button[data-baseweb="button"] {
+        background-color: #2d3748 !important;
+        color: white !important;
     }
 </style>
 """, unsafe_allow_html=True)
@@ -171,14 +178,27 @@ def main():
     </div>
     """, unsafe_allow_html=True)
     
-    # Password input - SINGLE LABEL
-    st.markdown('<p class="dark-mode"><strong>Enter your password</strong></p>', unsafe_allow_html=True)
-    password = st.text_input(
-        "",  # Empty label since we're showing our own
-        type="password",
-        placeholder="Type your password here...",
-        key="pwd_input"
-    )
+    # Password input
+    st.markdown("<p><strong>Enter your password</strong></p>", unsafe_allow_html=True)
+    
+    # Create a container for the password input and visibility toggle
+    col1, col2 = st.columns([6, 1])
+    
+    with col1:
+        password = st.text_input(
+            "",  # Empty label since we're showing our own
+            type="password",
+            placeholder="Type your password here...",
+            key="pwd_input"
+        )
+    
+    with col2:
+        if st.button("👁️"):
+            st.session_state.pwd_visible = not st.session_state.get('pwd_visible', False)
+    
+    # Show password if visibility toggled
+    if st.session_state.get('pwd_visible', False) and password:
+        st.code(password)
     
     # Results
     if password:
@@ -195,9 +215,9 @@ def main():
                 st.error("❌ Weak password")
             
             if tips:
-                st.markdown('<p class="dark-mode"><strong>Improve your password:</strong></p>', unsafe_allow_html=True)
+                st.markdown("<p><strong>Improve your password:</strong></p>", unsafe_allow_html=True)
                 for tip in tips:
-                    st.markdown(f'<p class="dark-mode">- {tip}</p>', unsafe_allow_html=True)
+                    st.markdown(f"- {tip}")
             
             if st.button("Generate Strong Password"):
                 new_pwd = generate_password()
@@ -211,6 +231,10 @@ def main():
         Developed with ❤️ by Farah Asghar | © 2025 Password Meter Pro | v2.0
     </div>
     """, unsafe_allow_html=True)
+
+# Initialize session state for password visibility
+if 'pwd_visible' not in st.session_state:
+    st.session_state.pwd_visible = False
 
 if __name__ == "__main__":
     main()
