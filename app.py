@@ -29,10 +29,21 @@ st.markdown("""
             background-color: #fff; /* Input background color */
             border: 1px solid #ccc; /* Border color */
         }
-        /* Placeholder text styling */
+        /* Placeholder text styling for light theme */
         .stTextInput>div>input::placeholder {
             color: #aaa; /* Light gray placeholder text */
             opacity: 1; /* Ensure full visibility */
+        }
+        /* Placeholder text styling for dark theme */
+        @media (prefers-color-scheme: dark) {
+            .stTextInput>div>input {
+                background-color: #222; /* Dark mode background */
+                color: #fff; /* Text color in dark mode */
+                border: 1px solid #555; /* Dark mode border */
+            }
+            .stTextInput>div>input::placeholder {
+                color: #ddd; /* Lighter gray for better visibility in dark mode */
+            }
         }
         .emoji {
             font-size: 28px;
