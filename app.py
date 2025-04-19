@@ -9,9 +9,15 @@ st.set_page_config(page_title="Password Strength Meter", page_icon="🔐", layou
 # ========== Custom Styling ==========
 st.markdown("""
     <style>
+        /* Global styles for light theme */
+        body {
+            background-color: #f8f9fa; /* Light theme background */
+        }
         .main {
             background-color: #f8f9fa;
         }
+
+        /* Button styling */
         .stButton>button {
             background-color: #4b6cb7;
             color: white;
@@ -19,7 +25,8 @@ st.markdown("""
             padding: 10px 20px;
             font-weight: bold;
         }
-        /* Custom styling for the password input field */
+
+        /* Input field styling */
         .stTextInput>div>input {
             border-radius: 10px;
             height: 45px;
@@ -29,22 +36,42 @@ st.markdown("""
             background-color: #fff; /* Input background color */
             border: 1px solid #ccc; /* Border color */
         }
+
         /* Placeholder text styling for light theme */
         .stTextInput>div>input::placeholder {
             color: #aaa; /* Light gray placeholder text */
             opacity: 1; /* Ensure full visibility */
         }
-        /* Placeholder text styling for dark theme */
+
+        /* Dark theme overrides */
         @media (prefers-color-scheme: dark) {
+            body {
+                background-color: #222; /* Dark theme background */
+            }
+            .main {
+                background-color: #222;
+            }
+
+            /* Dark theme input field */
             .stTextInput>div>input {
-                background-color: #222; /* Dark mode background */
+                background-color: #333; /* Dark mode background */
                 color: #fff; /* Text color in dark mode */
                 border: 1px solid #555; /* Dark mode border */
             }
+
+            /* Dark theme placeholder text */
             .stTextInput>div>input::placeholder {
                 color: #ddd; /* Lighter gray for better visibility in dark mode */
             }
+
+            /* Dark theme button */
+            .stButton>button {
+                background-color: #4b6cb7;
+                color: white;
+            }
         }
+
+        /* Other styles */
         .emoji {
             font-size: 28px;
         }
@@ -60,6 +87,7 @@ st.markdown("""
             color: #ffc107;
             font-weight: bold;
         }
+
         /* Styling for the main heading */
         .colorful-heading {
             background-color: indigo; /* Indigo background */
