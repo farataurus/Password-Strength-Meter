@@ -46,10 +46,10 @@ st.markdown("""
         /* Dark theme overrides */
         @media (prefers-color-scheme: dark) {
             body {
-                background-color: #222; /* Dark theme background */
+                background-color: #001f3f; /* Navy blue background for dark theme */
             }
             .main {
-                background-color: #222;
+                background-color: #001f3f;
             }
 
             /* Dark theme input field */
