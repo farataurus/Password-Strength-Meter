@@ -46,10 +46,10 @@ st.markdown("""
         /* Dark theme overrides */
         @media (prefers-color-scheme: dark) {
             body {
-                background-color: #001f3f; /* Navy blue background for dark theme */
+                background-color: #1e1e1e; /* Streamlit's default dark theme background */
             }
             .main {
-                background-color: #001f3f;
+                background-color: #1e1e1e;
             }
 
             /* Dark theme input field */
